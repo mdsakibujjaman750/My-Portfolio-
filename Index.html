@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAKIB | Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050c1a;
+            --text-color: #ecf0f1;
+            --card-bg: rgba(116, 185, 255, 0.1);
+            --accent-color: #74b9ff;
+            --secondary-accent: #00cec9;
+            --nav-bg: rgba(5, 12, 26, 0.9);
+        }
+
+        .light-theme {
+            --bg-color: #f5f6fa;
+            --text-color: #2f3640;
+            --card-bg: rgba(0, 0, 0, 0.05);
+            --accent-color: #0984e3;
+            --secondary-accent: #00b894;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: 0.3s ease; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--text-color); 
+            background-color: var(--bg-color); 
+            overflow-x: hidden; 
+        }
+
+        /* Click Animation */
+        .clickable:active { transform: scale(0.92) !important; }
+
+        /* Snowflake Animation */
+        .snowflake {
+            position: fixed; top: -10vh; color: var(--accent-color);
+            z-index: 9999; pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navbar */
+        nav { 
+            background: var(--nav-bg); 
+            position: fixed; top: 0; width: 100%; z-index: 100; 
+            padding: 15px 0; border-bottom: 1px solid rgba(116, 185, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 85%; margin: auto; }
+        .logo-sakib {
+            font-size: 1.8rem; font-weight: 900; text-decoration: none; color: var(--text-color);
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .logo-sakib span { color: var(--secondary-accent); }
+
+        #theme-toggle {
+            background: var(--card-bg); border: 1px solid var(--accent-color);
+            color: var(--text-color); padding: 8px 12px; border-radius: 20px; cursor: pointer;
+        }
+
+        /* Hero Section */
+        #home { 
+            min-height: 100vh; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; text-align: center;
+            padding: 120px 20px 60px;
+        }
+        .profile-img {
+            width: 200px; height: 200px; border-radius: 50%;
+            border: 5px solid var(--accent-color); object-fit: cover;
+            object-position: center 15%; margin-bottom: 25px; 
+            box-shadow: 0 0 25px rgba(116, 185, 255, 0.4);
+        }
+        .hero-h1 { font-size: 3rem; font-weight: 900; color: var(--text-color); text-transform: uppercase; }
+        .hero-h1 span { color: var(--accent-color); }
+        .typing-text { font-size: 1.5rem; color: var(--secondary-accent); margin-top: 10px; font-weight: bold; min-height: 40px; }
+
+        /* Stats */
+        .stats-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px; width: 100%; max-width: 900px; margin: 40px auto;
+        }
+        .stat-box {
+            background: var(--card-bg); padding: 25px 15px; border-radius: 12px;
+            border-bottom: 3px solid var(--secondary-accent); cursor: pointer;
+        }
+        .stat-box:hover { background: rgba(116, 185, 255, 0.2); }
+        .stat-box h2 { font-size: 2.2rem; margin-bottom: 5px; }
+        .stat-box p { font-size: 0.85rem; color: var(--accent-color); text-transform: uppercase; font-weight: bold; }
+
+        /* Sections */
+        section { padding: 80px 20px; text-align: center; }
+        .container { max-width: 900px; margin: auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 30px; color: var(--accent-color); text-transform: uppercase; }
+
+        /* About Text Card */
+        .about-text {
+            line-height: 1.8; font-size: 1.05rem; text-align: justify;
+            background: var(--card-bg); padding: 30px; border-radius: 15px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        /* Skills & Projects */
+        .skills-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .projects-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid rgba(116, 185, 255, 0.1); }
+        .project-card { text-align: left; border-left: 5px solid var(--secondary-accent); }
+
+        footer { padding: 40px; background: rgba(0,0,0,0.1); border-top: 1px solid rgba(116, 185, 255, 0.1); text-align: center; }
+        .dev-name { font-weight: 900; color: var(--secondary-accent); text-transform: uppercase; text-decoration: none; cursor: pointer; }
+        .dev-name:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--secondary-accent); }
+
+        @media (max-width: 768px) {
+            .hero-h1 { font-size: 2.2rem; }
+            .stats-container { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo-sakib">SAKIB<span>.</span></a>
+            <button id="theme-toggle" class="clickable"><i class="fas fa-moon"></i> Theme</button>
+        </div>
+    </nav>
+
+    <section id="home">
+        <img src="https://image2url.com/r2/default/images/1771881520264-8b3eac0b-f35e-472e-81ad-f1d45970030c.jpg" alt="Sakib Profile" class="profile-img">
+        <h1 class="hero-h1">HI, I'M <span>SAKIB</span></h1>
+        <div class="typing-text" id="type-text"></div>
+        
+        <div class="stats-container">
+            <div class="stat-box clickable" onclick="window.location.href='#projects'">
+                <h2 class="counter" data-target="15">0</h2>
+                <p>Projects Done</p>
+            </div>
+            <div class="stat-box clickable" onclick="window.location.href='#skills'">
+                <h2 class="counter" data-target="2">0</h2>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-box">
+                <h2 class="counter" data-target="12">0</h2>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-box">
+                <p>Connect Me</p>
+                <div style="margin-top:10px; display: flex; gap: 15px; justify-content: center;">
+                    <a href="https://www.facebook.com/share/1Gmeb8Yhzg/" target="_blank" class="clickable" style="color:inherit; font-size:1.5rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="https://t.me/Gen_Optimizer_x" target="_blank" class="clickable" style="color:inherit; font-size:1.5rem;"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Who I Am</h2>
+            <div class="about-text">
+                I am a passionate <b>Computer Science & Technology (CST)</b> student and a self-taught <b>Full-Stack Developer</b>. My journey in the tech world is driven by a deep curiosity about how things work behind the screen.
+                <br><br>
+                I specialize in crafting high-performance applications using <b>Python and C++</b>, while creating visually stunning and user-friendly web interfaces with <b>Modern Web Technologies</b>. I don't just write code; I build solutions that bridge the gap between complex logic and seamless user experience. Currently, I am focused on mastering automation, data structures, and advanced UI/UX principles.
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-grid">
+                <div class="card"><i class="fab fa-html5" style="font-size: 2.5rem; color: var(--secondary-accent);"></i><h3>HTML5</h3></div>
+                <div class="card"><i class="fab fa-css3-alt" style="font-size: 2.5rem; color: var(--secondary-accent);"></i><h3>CSS3</h3></div>
+                <div class="card"><i class="fab fa-js" style="font-size: 2.5rem; color: var(--secondary-accent);"></i><h3>JS</h3></div>
+                <div class="card"><i class="fab fa-python" style="font-size: 2.5rem; color: var(--secondary-accent);"></i><h3>Python</h3></div>
+                <div class="card"><i class="fas fa-code" style="font-size: 2.5rem; color: var(--secondary-accent);"></i><h3>C++</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Recently Projects</h2>
+            <div class="projects-grid">
+                <div class="card project-card clickable"><h3>Snow Portfolio</h3><p>Interactive brand website with theme switching.</p></div>
+                <div class="card project-card clickable"><h3>Automation Script Bot</h3><p>Python tool to streamline repetitive tasks.</p></div>
+                <div class="card project-card clickable"><h3>CST Toolkit App</h3><p>Management app for engineering students.</p></div>
+                <div class="card project-card clickable"><h3>Cyber Security Scanner</h3><p>Port scanner built for security testing.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 | <a href="https://t.me/Gen_Optimizer_x" target="_blank" class="dev-name clickable">Developer SAKIB</a></p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            themeBtn.innerHTML = document.body.classList.contains('light-theme') ? '<i class="fas fa-sun"></i> Theme' : '<i class="fas fa-moon"></i> Theme';
+        });
+
+        // Typing effect
+        const textElement = document.getElementById("type-text");
+        const words = ["CST Student", "C++ Developer", "Web Designer", "Python Programmer"];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            textElement.textContent = isDeleting ? currentWord.substring(0, charIndex - 1) : currentWord.substring(0, charIndex + 1);
+            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
+            if (!isDeleting && charIndex === currentWord.length) { isDeleting = true; setTimeout(type, 1500); }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; setTimeout(type, 500); }
+            else { setTimeout(type, isDeleting ? 50 : 100); }
+        }
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const startCount = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace('+','');
+                    const inc = target / 40;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 40);
+                    } else { counter.innerText = target + "+"; }
+                };
+                updateCount();
+            });
+        };
+
+        // Snowflake effect
+        function createSnow() {
+            const snow = document.createElement('div');
+            snow.classList.add('snowflake');
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snow.style.fontSize = Math.random() * 10 + 10 + 'px';
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 5000);
+        }
+
+        window.onload = () => {
+            type();
+            startCount();
+            setInterval(createSnow, 150);
+        };
+    </script>
+</body>
+</html>
